@@ -1,0 +1,21 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "strict": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "declaration": true,
+        "declarationDir": "types",
+        "sourceMap": true,
+        "outDir": "dist",
+        "rootDir": "src"
+    },
+    
+    "include": [
+        "src"
+    ],
+
+    "exclude": [
+        "node_modules"
+    ]
+}

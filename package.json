@@ -1,0 +1,29 @@
+{
+  "name": "angsql-app",
+  "version": "1.0.0",
+  "description": "App for manage MySQL databases with AngularJS and NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "start:server": "cd server && npm run start",
+    "start:client": "cd client && npm run start",
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "cd server && npm run build",
+    "build:client": "cd client && npm run build",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix."
+  },
+  "keywords": [],
+  "author": "Nasadmi",
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "concurrently": "^8.2.0",
+    "eslint": "^8.45.0",
+    "eslint-config-standard-with-typescript": "^37.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^16.0.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "typescript": "^5.1.6"
+  }
+}

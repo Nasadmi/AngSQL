@@ -5,25 +5,29 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "devel": "concurrently \"npm run devel:server\" \"npm run devel:client\"",
+    "devel:server": "cd server && npm run devel",
+    "devel:client": "cd client && npm run start",
     "start:server": "cd server && npm run start",
     "start:client": "cd client && npm run start",
-    "build": "npm run build:server && npm run build:client",
+    "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
     "build:server": "cd server && npm run build",
     "build:client": "cd client && npm run build",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix."
+    "lint:fix": "eslint . --fix"
   },
   "keywords": [],
   "author": "Nasadmi",
   "license": "MIT",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "@typescript-eslint/parser": "^6.2.0",
     "concurrently": "^8.2.0",
-    "eslint": "^8.45.0",
-    "eslint-config-standard-with-typescript": "^37.0.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^16.0.1",
-    "eslint-plugin-promise": "^6.1.1",
+    "eslint": "^8.46.0",
+    "standard": "^17.1.0",
     "typescript": "^5.1.6"
+  },
+  "eslintConfig": {
+    "extends": "standard"
   }
 }

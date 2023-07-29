@@ -1,0 +1,13 @@
+<header class="head-app">
+    <h1>AngSQL Manager</h1>
+    <h2>Connections</h2>
+</header>
+<main class="content">
+    <ng-container *ngIf="data === null; else elseBlock">
+        <h2>No connections created</h2>
+    </ng-container>
+    <ng-template #elseBlock>
+        <app-connections-list *ngFor="let connects of data" [connections]="connects">
+        </app-connections-list>
+    </ng-template>
+</main>

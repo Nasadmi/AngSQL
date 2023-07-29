@@ -1,0 +1,13 @@
+<ng-container *ngIf="connections">
+    <h1>{{ connections.host }}:{{connections.port}}</h1>
+    <h2>
+        {{ connections.user }}
+        <br>
+        <ng-container *ngIf="connections.database !== undefined; else esleText">
+            {{ connections.database }}
+        </ng-container>
+        <ng-template #esleText>
+            No database selected
+        </ng-template>
+    </h2>
+</ng-container>

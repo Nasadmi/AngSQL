@@ -2,11 +2,9 @@ import { Router } from "express";
 
 import { connections } from "../config/connections"
 
-import { ConnectionsStruct } from "../config/types"
-
 const router = Router();
 
-let arr: any[] = []
+const arr: unknown[] = []
 
 function getConnections() {
     for (let i = 0; i < connections.length; i++) {
@@ -22,11 +20,8 @@ function getConnections() {
 
 const connection = getConnections()
 
-router.post('/api/connections/get', (req, res) => {
-    console.log(connection)
-    res.json({
-        connects: connection
-    })
+router.get('/api/connections/get', (req, res) => {
+    res.json(connection)
 })
 
 export { router as connectionsAPI }

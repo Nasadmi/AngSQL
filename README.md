@@ -20,6 +20,11 @@ npm i @angular/cli -D
 
 ## Installation
 
+# Root dependencies
+```bash
+npm i
+```
+
 ### Server Dependencies
 ```bash
 cd server && npm i

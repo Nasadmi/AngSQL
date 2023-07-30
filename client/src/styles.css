@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("./assets/styles/root.css");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    font-family: var(--angsql-ir-font);
+    background-color: var(--angsql-black);
+}

@@ -1,0 +1,17 @@
+@import url("./ubuntu.css");
+@import url("./inter.css");
+
+:root {
+    --angsql-black: #272829;
+    --angsql-blueDark: #61677A;
+    --angsql-blueLight: #D8D9DA;
+    --angsql-white: #FFF6E0;
+    --angsql-ur-font: "Ubuntu Regular", 'Helvetica', 'Arial', sans-serif;
+    --angsql-ui-font: "Ubuntu Italic", 'Helvetica', 'Arial', sans-serif;
+    --angsql-ub-font: "Ubuntu Medium", 'Helvetica', 'Arial', sans-serif;
+    --angsql-ul-font: "Ubuntu Light", 'Helvetica', 'Arial', sans-serif;
+    --angsql-ir-font: "Inter Regular", 'Helvetica', 'Arial', sans-serif;
+    --angsql-ib-font: "Inter Bold", 'Helvetica', 'Arial', sans-serif;
+    --angsql-il-font: "Inter Light", 'Helvetica', 'Arial', sans-serif;
+    --angsql-im-font: "Inter Medium", 'Helvetica', 'Arial', sans-serif;
+}

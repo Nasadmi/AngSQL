@@ -1,0 +1,32 @@
+.head-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.head-app h1 {
+    font-size: 50px;
+    font-family: var(--angsql-ub-font);
+    color: var(--angsql-blueDark);
+    letter-spacing: 2px;
+}
+
+.head-app h2 {
+    font-size: 27px;
+    font-family: var(--angsql-ir-font);
+    color: var(--angsql-blueLight);
+}
+
+.head-app h1 span, .head-app h1 {
+    transition: all .5s ease-in-out;
+}
+
+.focus {
+    color: var(--angsql-white);
+}
+
+.white {
+    color: var(--angsql-white);
+}

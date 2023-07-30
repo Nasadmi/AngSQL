@@ -4,11 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ConnectionsListComponent } from './connections-list/connections-list.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConnectionsListComponent
+    ConnectionsListComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,

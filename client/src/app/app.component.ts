@@ -15,7 +15,13 @@ import { SERVER_HOST } from 'src/consts';
 export class AppComponent implements OnInit {
   title = 'AngSQL';
   data!: Root['connections'] | null;
+  colorChange: boolean = false;
   constructor(private httpService: HttpService) {}
+  colorChangeHandler(): void {
+    setInterval(() => {
+      this.colorChange = !this.colorChange;
+    }, 1500)
+  }
   ngOnInit(): void {
     const url = `${SERVER_HOST}/api/connections/get`;
     this.httpService.get({ url, type: this.data as Root['connections'] })
@@ -27,5 +33,6 @@ export class AppComponent implements OnInit {
         this.data = null;
       }
     })
+    this.colorChangeHandler();
   }
 }

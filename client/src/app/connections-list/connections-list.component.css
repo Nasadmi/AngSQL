@@ -1,0 +1,65 @@
+.content {
+    padding: 5px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 12px;
+    background-color: #222;
+    text-align: center;
+    color: var(--angsql-white);
+}
+
+.content h1 {
+    color: var(--angsql-white);
+    font-family: var(--angsql-ub-font);
+}
+
+.content h2 .tag-user {
+    color: var(--angsql-blueLight);
+    font-family: var(--angsql-ub-font);
+}
+
+.content h2 .tag-db {
+    color: var(--angsql-blueDark);
+    font-family: var(--angsql-ub-font);
+}
+
+.content .control button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    padding: 5px 7px;
+    border-radius: 12px;
+    margin: 5px 10px;
+    transition: all .2s ease-in-out;
+}
+
+.content .control button.connect {
+    background-color: rgb(0, 194, 0);
+    color: #111;
+}
+
+.content .control button.connect:hover {
+    background-color: #111;
+    color: rgb(0, 194, 0);
+}
+
+.content .control button.edit {
+    background-color: rgb(0, 99, 145);
+    color: var(--angsql-white);
+}
+
+.content .control button.edit:hover {
+    background-color: var(--angsql-white);
+    color: rgb(0, 99, 145);
+}
+
+.content .control button.delete {
+    background-color: rgb(136, 0, 0);
+    color: var(--angsql-white);
+}
+
+.content .control button.delete:hover {
+    background-color: var(--angsql-white);
+    color: rgb(136, 0, 0);
+}

@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { HttpService } from 'src/services/http.service';
 
 import { SERVER_HOST } from 'src/consts';
 
 import { Root } from 'src/models/connections.model';
+
+import { ShareService } from 'src/services/share.service';
 
 import * as alert from "sweetalert2"
 
@@ -13,7 +15,9 @@ import * as alert from "sweetalert2"
   templateUrl: './add-connection.component.html',
   styleUrls: ['./add-connection.component.css']
 })
+
 export class AddConnectionComponent {
+  @Input() show!: string | number | boolean;
   data: Root['connectionsInterfaces'] = {
     host: '',
     port: null,
@@ -21,7 +25,10 @@ export class AddConnectionComponent {
     password: '',
     database: undefined
   }
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, private shareService: ShareService) { }
+  hideComponent() {
+    this.shareService.updateVariable(false)
+  }
   sendValues() {
     if (this.data.host === "" 
       || this.data.port === "" 

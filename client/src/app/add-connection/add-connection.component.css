@@ -1,0 +1,117 @@
+.addConnection {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 0 20px;
+    transform: translateX(-500px);
+    transition: all .5s ease-in-out;
+}
+
+.addConnection.show {
+    transform: translateX(0);
+}
+
+.addConnection > .title {
+    font-size: 30px;
+    font-family: var(--angsql-ub-font);
+    margin-bottom: 10px;
+    color: var(--angsql-blueLight);
+    margin-top: 10px;
+}
+
+.addConnection .btn-exit {
+    max-height: 30px;
+    padding: 20px 10px;
+    font-size: 30px;
+    color: #111;
+    background-color: rgb(196, 0, 0);
+    border-radius: 22px;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    transition: all .7s ease-in-out;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.addConnection .btn-exit:hover {
+    background-color: #111;
+    color: rgb(196, 0, 0);
+}
+
+.addConnection > .form {
+    width: 100%;
+}
+
+.addConnection >.form > label > h3 {
+    color: var(--angsql-blueDark);
+    font-size: 24px;
+    font-family: var(--angsql-ur-font);
+    margin-top: 10px;
+}
+
+.addConnection >.form > label > h3 > span {
+    color: rgb(196, 0, 0);
+    position: relative;
+}
+
+.addConnection > .form label h3 span::before {
+    position: absolute;
+    content: "Required";
+    display: none;
+    top: 0;
+    left: 20px;
+    background-color: var(--angsql-blueDark);
+    font-size: 10px;
+    padding: 2px;
+    color: var(--angsql-white);
+    transition: all 0.5s ease-in-out;
+    border-radius: 6px;
+}
+
+.addConnection >.form label h3 span:hover::before {
+    display: block;
+}
+
+.addConnection >.form > label > input {
+    padding: 3px;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+    width: 95%;
+    margin-top: 10px;
+    font-size: 18px;
+    font-family: var(--angsql-ir-font);
+    margin-left: 10px;
+}
+
+.btn-flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.addConnection .btn-submit {
+    padding: 5px 10px;
+    background-color: rgb(0, 194, 0);
+    color: #0f1322;
+    font-family: var(--angsql-ub-font);
+    font-size: 24px;
+    margin-top: 10px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.addConnection .btn-submit:hover {
+    background-color: #0f1322;
+    color: rgb(0, 194, 0);
+}

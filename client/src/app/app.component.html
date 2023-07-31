@@ -9,6 +9,7 @@
 <main class="content">
     <ng-container *ngIf="data === null; else elseBlock">
         <h2>No connections created</h2>
+        <app-add-connection></app-add-connection>
     </ng-container>
     <ng-template #elseBlock>
         <app-connections-list *ngFor="let connects of data" [connections]="connects">

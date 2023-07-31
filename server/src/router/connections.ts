@@ -37,18 +37,10 @@ router.post('/api/connections/add', async (req, res) => {
         connection => 
         connection.host === host && 
         connection.port === port && 
-        connection.user === user && 
-        connection.password === passwordEncrypted
+        connection.user === user 
     ) as ConnectionsStruct)
 
     if (!exists) {
-        connections.push({
-            host: host,
-            port: port,
-            user: user,
-            password: passwordEncrypted,
-            database: database
-        })
         await addConnection({
             host: host,
             port: port,

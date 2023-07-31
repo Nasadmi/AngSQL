@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { HttpService } from 'src/services/http.service';
 
-import { SERVER_HOST } from 'src/consts';
+import { SERVER_HOST, ALERT_STYLE } from 'src/consts';
 
 import { Root } from 'src/models/connections.model';
 
@@ -15,6 +15,7 @@ import * as alert from "sweetalert2"
   templateUrl: './add-connection.component.html',
   styleUrls: ['./add-connection.component.css']
 })
+
 
 export class AddConnectionComponent {
   @Input() show!: string | number | boolean;
@@ -38,7 +39,9 @@ export class AddConnectionComponent {
           title: "Error",
           text: "All fields are required",
           icon: "warning",
-          confirmButtonText: "Ok"
+          confirmButtonText: "Ok",
+          background: ALERT_STYLE('var(--angsql-blueDark)', '').background,
+          color: ALERT_STYLE('', 'var(--angsql-white)').color
         }) 
       }
 
@@ -48,7 +51,9 @@ export class AddConnectionComponent {
         text: 'Please enter a valid port number',
         icon: 'error',
         confirmButtonText: 'Ok',
-        timer: 7500
+        timer: 7500,
+        background: ALERT_STYLE('var(--angsql-blueDark)', '').background,
+        color: ALERT_STYLE('', 'var(--angsql-white)').color
       })
     }
     return this.httpService.post({
@@ -56,22 +61,31 @@ export class AddConnectionComponent {
       type: this.data as Root['connectionsInterfaces'], 
       body: this.data}).subscribe((res) => {
         const response = res as Root['connectionsInterfaces'];
+        console.log(response)
         if (!response.message) {
           alert.default.fire({
             title: 'This connection already exists',
             text: '',
             icon:'info',
             confirmButtonText: 'Ok',
-            timer: 1000
+            timer: 7500,
+            background: ALERT_STYLE('var(--angsql-blueDark)', '').background,
+            color: ALERT_STYLE('', 'var(--angsql-white)').color
+          })
+        } else {
+          alert.default.fire({
+            title: 'Success',
+            text: 'Connection added successfully',
+            icon:'success',
+            confirmButtonText: 'Ok',
+            timer: 7500,
+            background: ALERT_STYLE('var(--angsql-blueDark)', '').background,
+            color: ALERT_STYLE('', 'var(--angsql-white)').color
+          }).then(() => {
+            this.hideComponent()
+            window.location.reload()
           })
         }
-        alert.default.fire({
-          title: 'Success',
-          text: 'Connection added successfully',
-          icon:'success',
-          confirmButtonText: 'Ok',
-          timer: 7500
-        })
     })
   }
 

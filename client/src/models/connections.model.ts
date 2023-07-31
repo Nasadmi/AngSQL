@@ -5,7 +5,9 @@ export interface Root {
 
 export interface Connections {
     host: string;
-    port: number;
+    port: number | string | null;
     user: string;
     database?: string;
+    password?: string;
+    message?: string;
 }

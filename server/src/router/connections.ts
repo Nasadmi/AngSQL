@@ -23,7 +23,7 @@ function getConnections() {
     return arr
 }
 
-const connection = getConnections()
+let connection = getConnections()
 
 router.get('/api/connections/get', (req, res) => {
     res.json(connection)
@@ -48,6 +48,7 @@ router.post('/api/connections/add', async (req, res) => {
             password: passwordEncrypted,
             database: database
         })
+        connection = getConnections()
         res.json({
             message: true
         })

@@ -20,7 +20,6 @@ function getConnections() {
             database: connections[i].database
         })
     }
-    console.log(arr);
     return arr
 }
 
@@ -57,7 +56,6 @@ router.post('/api/connections/add', async (req, res) => {
             password: passwordEncrypted,
             database: database
         })
-        console.log(connections)
         res.json({
             message: true
         })

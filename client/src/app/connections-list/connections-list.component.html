@@ -3,7 +3,7 @@
     <h2>
         {{ connections.user }}
         <br>
-        <ng-container *ngIf="connections.database?.length === 0; else esleText">
+        <ng-container *ngIf="connections.database !== ''; else esleText">
             {{ connections.database }}
         </ng-container>
         <ng-template #esleText>

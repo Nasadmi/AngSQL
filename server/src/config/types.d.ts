@@ -3,5 +3,5 @@ export interface ConnectionsStruct {
     port: number;
     user: string;
     password: string;
-    database?: string;
+    database: string;
 }

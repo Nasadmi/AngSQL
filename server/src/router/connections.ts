@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { encrypt } from "../lib/crypt";
+import { decrypt, encrypt } from "../lib/crypt";
 import { ConnectionsStruct } from "../config/types";
 import connections  from "../config/connections.json"
-import { addConnection } from "../lib/connectionHandler";
+import { addConnection, removeConnection } from "../lib/connectionHandler";
 
 const router = Router();
 
@@ -31,7 +31,7 @@ router.get('/api/connections/get', (req, res) => {
 
 router.post('/api/connections/add', async (req, res) => {
     const { host, port, user, password, database } = req.body
-    const passwordEncrypted = encrypt(password)
+    const { data, key } = encrypt(password)
 
     const exists = connections.includes(connections.find(
         connection => 
@@ -45,7 +45,8 @@ router.post('/api/connections/add', async (req, res) => {
             host: host,
             port: port,
             user: user,
-            password: passwordEncrypted,
+            password: data,
+            passwordKey: key,
             database: database
         })
         connection = getConnections()
@@ -55,6 +56,49 @@ router.post('/api/connections/add', async (req, res) => {
     } else {
         res.json({
             message: false
+        })
+    }
+})
+
+router.post('/api/connections/delete', async (req, res) => {
+    const { host, port, user, password } = req.body
+
+    let { database } = req.body
+
+    const exists = connections.includes(connections.find(
+        connection =>
+        connection.host === host && 
+        connection.port === port && 
+        connection.user === user
+    ) as ConnectionsStruct)
+
+    if (!exists) {
+        res.json({
+            message: false
+        })
+    } else {
+        if (database === undefined) {
+            database = ""
+        }
+        
+        const passwordFound = connections.find(connection => 
+            decrypt(connection.password, connection.passwordKey) === password &&
+            connection.host === host &&
+            connection.port === port &&
+            connection.user === user &&
+            connection.database === database
+        )
+        
+        if (passwordFound === undefined) {
+            return res.json({
+                message: 'Password'
+            })
+        }
+
+        await removeConnection(passwordFound as ConnectionsStruct)
+
+        res.json({
+            message: true
         })
     }
 })

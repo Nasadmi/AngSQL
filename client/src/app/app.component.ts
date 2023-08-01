@@ -34,7 +34,6 @@ export class AppComponent implements OnInit {
     .subscribe((res): void => {
       this.data = res as Root['connections'];
       if (this.data.length > 0) {
-        console.log(this.data);
         this.data
       } else {
         this.data = null;

@@ -61,7 +61,6 @@ export class AddConnectionComponent {
       type: this.data as Root['connectionsInterfaces'], 
       body: this.data}).subscribe((res) => {
         const response = res as Root['connectionsInterfaces'];
-        console.log(response)
         if (!response.message) {
           alert.default.fire({
             title: 'This connection already exists',

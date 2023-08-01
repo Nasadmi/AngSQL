@@ -13,10 +13,13 @@ const key = getRandomString(32)
 
 export function encrypt(data: string) {
     const cypher = crypto.AES.encrypt(data, key);
-    return cypher.toString();
+    return {
+        data: cypher.toString(),
+        key: key
+    };
 }
 
-export function decrypt(data: string) {
+export function decrypt(data: string, key: string) {
     const decipher = crypto.AES.decrypt(data, key);
     return decipher.toString(crypto.enc.Utf8);
 }

@@ -6,9 +6,10 @@ import { addConnection, removeConnection } from "../lib/connectionHandler";
 
 const router = Router();
 
-const arr: unknown[] = []
+let arr: unknown[] = []
 
 function getConnections() {
+    arr = []
     for (let i = 0; i < connections.length; i++) {
         if (i === 0) {
             continue;
@@ -98,8 +99,6 @@ router.post('/api/connections/delete', async (req, res) => {
         await removeConnection(passwordFound as ConnectionsStruct)
 
         connection = getConnections()
-        
-        arr.splice(arr.indexOf(passwordFound as ConnectionsStruct), 1)
 
         res.json({
             message: true

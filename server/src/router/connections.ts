@@ -97,6 +97,10 @@ router.post('/api/connections/delete', async (req, res) => {
 
         await removeConnection(passwordFound as ConnectionsStruct)
 
+        connection = getConnections()
+        
+        arr.splice(arr.indexOf(passwordFound as ConnectionsStruct), 1)
+
         res.json({
             message: true
         })

@@ -11,8 +11,8 @@ function getRandomString(length: number) {
 
 const key = getRandomString(32)
 
-export function encrypt(data: string) {
-    const cypher = crypto.AES.encrypt(data, key);
+export function encrypt(data: string, keyData?: string) {
+    const cypher = crypto.AES.encrypt(data, keyData === undefined ? key : keyData);
     return {
         data: cypher.toString(),
         key: key

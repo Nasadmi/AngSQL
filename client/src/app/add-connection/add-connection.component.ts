@@ -1,12 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { HttpService } from 'src/services/http.service';
 
 import { SERVER_HOST, ALERT_STYLE } from 'src/consts';
 
 import { Root } from 'src/models/connections.model';
-
-import { ShareService } from 'src/services/share.service';
 
 import * as alert from "sweetalert2"
 
@@ -18,7 +16,8 @@ import * as alert from "sweetalert2"
 
 
 export class AddConnectionComponent {
-  @Input() show!: string | number | boolean;
+  @Input() show!: boolean;
+  @Output() hide = new EventEmitter<boolean>();
   data: Root['connectionsInterfaces'] = {
     host: '',
     port: null,
@@ -26,9 +25,10 @@ export class AddConnectionComponent {
     password: '',
     database: undefined
   }
-  constructor(private httpService: HttpService, private shareService: ShareService) { }
+  constructor(private httpService: HttpService) { }
   hideComponent() {
-    this.shareService.updateVariable(false)
+    this.hide.emit();
+    console.log(this.show);
   }
   sendValues() {
     if (this.data.host === "" 

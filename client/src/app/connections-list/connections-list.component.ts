@@ -14,6 +14,7 @@ import * as alerts from "sweetalert2"
 })
 export class ConnectionsListComponent {
   @Input() connections!: Connections;
+  showEditComponent: boolean = false;
   constructor(private httpService: HttpService) { }
   deleteConnection({
     host,
@@ -79,5 +80,13 @@ export class ConnectionsListComponent {
         })
       }
     })
+  }
+
+  showEditComponentHandler () {
+    this.showEditComponent = true
+  }
+
+  hideEditComponentHandler () {
+    this.showEditComponent = false;
   }
 }

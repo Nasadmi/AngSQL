@@ -2,7 +2,7 @@ import { Router } from "express";
 import { decrypt, encrypt } from "../lib/crypt";
 import { ConnectionsStruct } from "../config/types";
 import connections  from "../config/connections.json"
-import { addConnection, removeConnection } from "../lib/connectionHandler";
+import { addConnection, removeConnection, editConnection } from "../lib/connectionHandler";
 
 const router = Router();
 
@@ -104,6 +104,51 @@ router.post('/api/connections/delete', async (req, res) => {
             message: true
         })
     }
+})
+
+router.post('/api/connections/edit', async (req, res) => {
+    const { host, port, user, passwordExample } = req.body
+    let { password, database } = req.body
+
+    if (password === undefined) {
+        password = passwordExample
+    }
+
+    if (database === undefined) {
+        database = ""
+    }
+
+    const findData = connections.find(connection => 
+        decrypt(connection.password, connection.passwordKey) === passwordExample &&
+        connection.database === database
+    )
+
+    if (findData === undefined) {
+        return res.json({
+            message: 'Password'
+        })
+    }
+
+    const indexData = connections.indexOf(findData as ConnectionsStruct)
+
+    const encryptPassword = encrypt(password)
+
+    await editConnection(
+        {
+            host: host,
+            port: port,
+            user: user,
+            password: encryptPassword.data,
+            passwordKey: encryptPassword.key,
+            database: database
+        }, indexData
+    )
+
+    connection = getConnections()
+
+    res.json({
+        message: true
+    })
 })
 
 export { router as connectionsAPI }

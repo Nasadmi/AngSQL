@@ -6,8 +6,6 @@ import { Root } from 'src/models/connections.model';
 
 import { SERVER_HOST } from 'src/consts';
 
-import { ShareService } from 'src/services/share.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,14 +16,21 @@ export class AppComponent implements OnInit {
   title = 'AngSQL';
   data!: Root['connections'] | null;
   colorChange: boolean = false;
-  constructor(private httpService: HttpService, public shareService: ShareService) {}
+  showAddComponent: boolean = false;
+  constructor(private httpService: HttpService) {}
   colorChangeHandler(): void {
     setInterval(() => {
       this.colorChange = !this.colorChange;
     }, 1500)
   }
   showAddComponentHandler() {
-    this.shareService.variable = true;
+    this.showAddComponent = true;
+    console.log(this.showAddComponent);
+  }
+
+  hideAddComponent() {
+    this.showAddComponent = false;
+    console.log(this.showAddComponent);
   }
 
   getData(): void {

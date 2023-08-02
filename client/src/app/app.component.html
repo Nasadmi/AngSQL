@@ -8,7 +8,7 @@
     <button class="btn-add-component" (click)="showAddComponentHandler()">Create New Connection</button>
 </header>
 <main class="content">
-    <app-add-connection [show]="shareService.variable"></app-add-connection>
+    <app-add-connection [show]="showAddComponent" (hide)="hideAddComponent()"></app-add-connection>
     <ng-container *ngIf="data === null; else elseBlock">
         <div class="empity">
             <h2>No connections created</h2>

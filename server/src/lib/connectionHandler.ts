@@ -19,3 +19,10 @@ export async function removeConnection(connection: ConnectionsStruct) {
         if (err) throw err;
     });
 }
+
+export async function editConnection(connection: ConnectionsStruct, index: number) {
+    connections[index] = connection;
+    fs.writeFile(path.join(__dirname, "../config/connections.json"), JSON.stringify(connections, null, 4), (err) => {
+        if (err) throw err;
+    });
+}

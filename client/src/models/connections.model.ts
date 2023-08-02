@@ -9,5 +9,6 @@ export interface Connections {
     user: string;
     database?: string;
     password?: string;
+    passwordExample?: string;
     message?: string | boolean;
 }

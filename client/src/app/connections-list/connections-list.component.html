@@ -22,7 +22,12 @@
         database: connections.database
       })"><i class="fas fa-trash"></i></button>
       <button class="edit" (click)="showEditComponentHandler()"><i class="fas fa-pencil"></i></button>
-      <button class="connect"><i class="fa-solid fa-right-to-bracket"></i></button>
+      <button class="connect" (click)="connectConnection({
+        host: connections.host,
+        port: connections.port,
+        user: connections.user,
+        database: connections.database === '' ? undefined : connections.database
+      })"><i class="fa-solid fa-right-to-bracket"></i></button>
     </div>
   </div>
 </ng-container>

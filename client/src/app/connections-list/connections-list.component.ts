@@ -89,4 +89,82 @@ export class ConnectionsListComponent {
   hideEditComponentHandler () {
     this.showEditComponent = false;
   }
+
+  private Save(value: string) {
+    window.sessionStorage.setItem('connected', value)
+  }
+
+  connectConnection({
+    host,
+    port,
+    user,
+    database
+  }: Connections ) {
+    const data: Connections = {
+      host: host, 
+      port: parseInt(port as string), 
+      user: user, 
+      database: database,
+      password: ""
+    }
+    alerts.default.fire({
+      title: `Connecting to: \n${data.host}:${data.port}\n${data.user}`,
+      text: "Please enter password.",
+      input: 'password',
+      icon: 'info',
+      showCancelButton: true,
+      color: 'var(--angsql-white)',
+      background: '#111'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        data.password = result.value
+        this.httpService.post({
+          url: `${SERVER_HOST}/api/connections/connect`,
+          type: data,
+          body: data
+        }).subscribe((res) => {
+          const response = res as Connections;
+          if (response.message === false) {
+            return alerts.default.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Something went wrong. Please try again later.',
+              color: 'var(--angsql-white)',
+              background: '#111'
+            })
+          } 
+          if (response.message === 'Password') {
+            return alerts.default.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Incorrect password.',
+              color: 'var(--angsql-white)',
+              background: '#111'
+            })
+          }
+          if (response.error) {
+            return alerts.default.fire({
+              icon: 'error',
+              title: 'Error',
+              text: response.message as string,
+              color: 'var(--angsql-white)',
+              background: '#111'
+            })
+          }
+          return alerts.default.fire({
+            icon: 'success',
+            title: 'Connection has been established.',
+            text: '',
+            timer: 10000,
+            showConfirmButton: true,
+            color: 'var(--angsql-white)',
+            background: '#111'
+          }).then(() => {
+            this.Save(response.message as string);
+            window.location.reload()
+          })
+        })
+      }
+    })
+  }
 }

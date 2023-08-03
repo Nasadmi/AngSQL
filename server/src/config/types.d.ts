@@ -6,3 +6,11 @@ export interface ConnectionsStruct {
     password: string;
     database: string;
 }
+
+export interface MySQLConnectionStruct {
+    host: string;
+    port: number;
+    user: string;
+    password: string;
+    database?: string;
+}

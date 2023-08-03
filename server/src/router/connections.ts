@@ -1,8 +1,9 @@
 import { Router } from "express";
 import { decrypt, encrypt } from "../lib/crypt";
-import { ConnectionsStruct } from "../config/types";
+import { ConnectionsStruct, MySQLConnectionStruct } from "../config/types";
 import connections  from "../config/connections.json"
 import { addConnection, removeConnection, editConnection } from "../lib/connectionHandler";
+import { Connect } from "../lib/db";
 
 const router = Router();
 
@@ -149,6 +150,49 @@ router.post('/api/connections/edit', async (req, res) => {
     res.json({
         message: true
     })
+})
+
+router.post('/api/connections/connect', async (req, res) => {
+    const { host, port, user, password } = req.body
+    let { database } = req.body
+
+    if (database === undefined) {
+        database = ""
+    }
+
+    const findData = connections.find(connection => 
+        decrypt(connection.password, connection.passwordKey) === password &&
+        connection.host === host &&
+        connection.port === port &&
+        connection.user === user
+    )
+
+    if (findData === undefined) {
+        return res.json({
+            message: 'Password'
+        })
+    }
+
+    const connector = await Connect({
+        host: findData.host,
+        port: findData.port,
+        user: findData.user,
+        password: decrypt(findData.password, findData.passwordKey),
+        database: findData.database === "" ? undefined : findData.database,
+    } as MySQLConnectionStruct)
+
+    console.log(connector)
+
+    if (connector.err) {
+        return res.json({
+            error: true,
+            message: connector.message
+        })
+    } else {
+        res.json({
+            message: findData.passwordKey
+        })
+    }
 })
 
 export { router as connectionsAPI }

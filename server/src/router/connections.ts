@@ -181,8 +181,6 @@ router.post('/api/connections/connect', async (req, res) => {
         database: findData.database === "" ? undefined : findData.database,
     } as MySQLConnectionStruct)
 
-    console.log(connector)
-
     if (connector.err) {
         return res.json({
             error: true,

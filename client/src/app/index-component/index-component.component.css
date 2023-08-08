@@ -1,0 +1,67 @@
+.head-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.head-app h1 {
+    font-size: 50px;
+    font-family: var(--angsql-ub-font);
+    color: var(--angsql-blueDark);
+    letter-spacing: 2px;
+}
+
+.head-app h2 {
+    font-size: 27px;
+    font-family: var(--angsql-ir-font);
+    color: var(--angsql-blueLight);
+}
+
+.head-app h1 span, .head-app h1 {
+    transition: all .5s ease-in-out;
+}
+
+.focus {
+    color: var(--angsql-white);
+}
+
+.white {
+    color: var(--angsql-white);
+}
+
+.btn-add-component {
+    padding: 5px 10px;
+    background-color: var(--angsql-blueDark);
+    color: #0f1322;
+    font-family: var(--angsql-ub-font);
+    font-size: 24px;
+    margin-top: 10px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.btn-add-component:hover {
+    background-color: #0f1322;
+    color: var(--angsql-blueDark);
+}
+
+.empity {
+    text-align: center;
+    margin-top: 150px;
+    color: var(--angsql-white);
+    font-size: 32px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 150px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}

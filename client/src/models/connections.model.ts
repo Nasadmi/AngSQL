@@ -3,9 +3,14 @@ export interface Root {
     connections: Connections[]
 }
 
+export interface TokenData {
+    token: string
+    key?: string
+}
+
 interface Response {
     error?: boolean;
-    message?: string | boolean
+    message?: string | boolean | TokenData
 }
 
 interface OtherData {

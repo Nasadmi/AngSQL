@@ -8,6 +8,8 @@ import { port } from "../config/server.json"
 
 import { connectionsAPI } from "../router/connections"
 
+import { authAPI } from "../router/auth"
+
 const app = express()
 
 app.use(express.urlencoded({ extended: false }))
@@ -19,6 +21,8 @@ app.use(cors())
 app.use(morgan("dev"))
 
 app.use(connectionsAPI)
+
+app.use(authAPI)
 
 app.set("port", port)
 

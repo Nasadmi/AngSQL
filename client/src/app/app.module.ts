@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { ConnectionsListComponent } from './connectionManageComponents/connections-list/connections-list.component';
 import { AddConnectionComponent } from './connectionManageComponents/add-connection/add-connection.component';
 import { EditConnectionComponent } from './connectionManageComponents/edit-connection/edit-connection.component';
+import { IndexComponent } from './index-component/index-component.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConnectionsListComponent,
     AddConnectionComponent,
-    EditConnectionComponent
+    EditConnectionComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,

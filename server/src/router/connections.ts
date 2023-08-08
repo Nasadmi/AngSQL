@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { decrypt, encrypt } from "../lib/crypt";
+import { decrypt, encrypt, getRandomString } from "../lib/crypt";
 import { ConnectionsStruct, MySQLConnectionStruct } from "../config/types";
 import connections  from "../config/connections.json"
 import { addConnection, removeConnection, editConnection } from "../lib/connectionHandler";
 import { Connect } from "../lib/db";
+import * as tokenHandler from "jsonwebtoken";
 
 const router = Router();
 
@@ -180,6 +181,10 @@ router.post('/api/connections/connect', async (req, res) => {
         password: decrypt(findData.password, findData.passwordKey),
         database: findData.database === "" ? undefined : findData.database,
     } as MySQLConnectionStruct)
+    
+    const key = getRandomString(32)
+
+    const token = tokenHandler.sign(findData.passwordKey, key)
 
     if (connector.err) {
         return res.json({
@@ -188,7 +193,10 @@ router.post('/api/connections/connect', async (req, res) => {
         })
     } else {
         res.json({
-            message: findData.passwordKey
+            message: {
+                token: token,
+                key: key
+            }
         })
     }
 })

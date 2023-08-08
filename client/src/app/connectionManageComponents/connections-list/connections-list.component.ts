@@ -15,6 +15,7 @@ import * as alerts from "sweetalert2"
 export class ConnectionsListComponent {
   @Input() connections!: Connections;
   showEditComponent: boolean = false;
+  loading: boolean = false;
   constructor(private httpService: HttpService) { }
   deleteConnection({
     host,
@@ -82,16 +83,29 @@ export class ConnectionsListComponent {
     })
   }
 
+  private loadAlert() {
+    if (this.loading) {
+      return alerts.default.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+      }).fire({
+        icon: 'info',
+        title: 'Please be patient',
+        text: 'Waiting for response from server.',
+        color: 'var(--angsql-white)',
+        background: '#111'
+      })
+    }
+    return null
+  }
+
   showEditComponentHandler () {
     this.showEditComponent = true
   }
 
   hideEditComponentHandler () {
     this.showEditComponent = false;
-  }
-
-  private Save(value: string) {
-    window.sessionStorage.setItem('connected', value)
   }
 
   connectConnection({
@@ -118,11 +132,14 @@ export class ConnectionsListComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         data.password = result.value
+        this.loading = true;
+        this.loadAlert()
         this.httpService.post({
           url: `${SERVER_HOST}/api/connections/connect`,
           type: data,
           body: data
         }).subscribe((res) => {
+          this.loading = false;
           const response = res as Connections;
           if (response.message === false) {
             return alerts.default.fire({
@@ -160,8 +177,8 @@ export class ConnectionsListComponent {
             color: 'var(--angsql-white)',
             background: '#111'
           }).then(() => {
-            this.Save(response.message as string);
-            window.location.reload()
+            window.sessionStorage.setItem('connection', JSON.stringify(response.message))
+            window.location.href = '/connection'
           })
         })
       }

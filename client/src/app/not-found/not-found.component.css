@@ -1,0 +1,48 @@
+.relative {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.content {
+    padding: 15px;
+    background-color: #111;
+    border-radius: 22px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(50%, -50%);
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content h1 {
+    font-family: var(--angsql-ub-font);
+    color: var(--angsql-white);
+    font-size: 50px;
+    margin: 10px 0;
+}
+
+.content h3 {
+    font-family: var(--angsql-ir-font);
+    color: var(--angsql-blueLight);
+    font-size: 20px;
+    margin: 20px 0;
+}
+
+.content a {
+    font-family: var(--angsql-ub-font);
+    padding: 5px;
+    border-radius: 12px;
+    color: var(--angsql-white);
+    background-color: var(--angsql-blueDark);
+    text-decoration: none;
+    transition: all .5s ease;
+}
+
+.content a:hover {
+    background-color: var(--angsql-white);
+    color: var(--angsql-blueDark);
+}

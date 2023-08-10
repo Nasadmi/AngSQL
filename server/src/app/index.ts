@@ -10,6 +10,8 @@ import { connectionsAPI } from "../router/connections"
 
 import { authAPI } from "../router/auth"
 
+import { dbAPI } from "../router/db"
+
 const app = express()
 
 app.use(express.urlencoded({ extended: false }))
@@ -20,9 +22,13 @@ app.use(cors())
 
 app.use(morgan("dev"))
 
+app.disable("x-powered-by")
+
 app.use(connectionsAPI)
 
 app.use(authAPI)
+
+app.use(dbAPI)
 
 app.set("port", port)
 

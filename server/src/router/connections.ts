@@ -227,6 +227,42 @@ router.post('/api/connections/connect', async (req, res) => {
     })
 })
 
+router.post('/api/connections/disconnect', async (req, res) => {
+    if (db === undefined) {
+        return res.json({
+            error: true
+        })
+    }
+
+    const disconnect = new Promise<{err: boolean, message: string | null}>((resolve) => {
+        db.end((err) => {
+            if (err) {
+                resolve({
+                    err: true,
+                    message: err.message
+                })
+            } else {
+                resolve({
+                    err: false,
+                    message: null
+                })
+            }
+        })
+    })
+
+    if ((await disconnect).err) {
+        return res.json({
+            error: true,
+            message: (await disconnect).message
+        })
+    }
+
+    res.json({
+        error: false,
+        message: null
+    })
+})
+
 export { 
     router as connectionsAPI,
     db

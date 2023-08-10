@@ -14,3 +14,7 @@ export interface MySQLConnectionStruct {
     password: string;
     database?: string;
 }
+
+export interface MySQLResponseDatabases {
+    Database: string;
+}

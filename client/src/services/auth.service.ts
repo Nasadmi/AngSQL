@@ -27,20 +27,4 @@ export class AuthService {
         })
         return verify;
     }
-
-    GetDatafromToken(token: string) {
-        const data: TokenData = {
-            token: token,
-        }
-
-        this.http.post({
-            url: `${SERVER_HOST}/api/auth/decode`,
-            type: data as TokenData,
-            body: data
-        }).subscribe(res => {
-            const response = res as Root['connectionsInterfaces'];
-            return response.message as unknown
-        })
-        
-    }
 }

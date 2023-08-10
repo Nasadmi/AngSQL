@@ -7,6 +7,8 @@ import { ConnectionsListComponent } from './connectionManageComponents/connectio
 import { AddConnectionComponent } from './connectionManageComponents/add-connection/add-connection.component';
 import { EditConnectionComponent } from './connectionManageComponents/edit-connection/edit-connection.component';
 import { IndexComponent } from './index-component/index-component.component';
+import { CommonModule } from '@angular/common';
+import { HomeComponent } from './connectionRoute/homeComponent/home.component';
 
 @NgModule({
   declarations: [
@@ -14,12 +16,14 @@ import { IndexComponent } from './index-component/index-component.component';
     ConnectionsListComponent,
     AddConnectionComponent,
     EditConnectionComponent,
-    IndexComponent
+    IndexComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

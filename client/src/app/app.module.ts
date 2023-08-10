@@ -9,6 +9,9 @@ import { EditConnectionComponent } from './connectionManageComponents/edit-conne
 import { IndexComponent } from './index-component/index-component.component';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './connectionRoute/homeComponent/home.component';
+import { SqlComponent } from './connectionRoute/dataComponents/sql/sql.component';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,12 +21,16 @@ import { HomeComponent } from './connectionRoute/homeComponent/home.component';
     EditConnectionComponent,
     IndexComponent,
     HomeComponent,
+    SqlComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    CodemirrorModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -34,7 +34,7 @@ export class IndexComponent implements OnInit {
 
   getData(): void {
     const url = `${SERVER_HOST}/api/connections/get`;
-    this.httpService.get({ url, type: this.data as Root['connections'] })
+    this.httpService.get({ url, type: this.data as Root['connections'], headers: undefined })
     .subscribe((res): void => {
       this.data = res as Root['connections'];
       if (this.data.length > 0) {

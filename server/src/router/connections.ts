@@ -1,14 +1,16 @@
 import { Router } from "express";
 import { decrypt, encrypt, getRandomString } from "../lib/crypt";
-import { ConnectionsStruct, MySQLConnectionStruct } from "../config/types";
+import { ConnectionsStruct } from "../config/types";
 import connections  from "../config/connections.json"
 import { addConnection, removeConnection, editConnection } from "../lib/connectionHandler";
-import { Connect } from "../lib/db";
 import * as tokenHandler from "jsonwebtoken";
+import * as mysql from "mysql2";
 
 const router = Router();
 
 let arr: unknown[] = []
+
+let db: mysql.Connection;
 
 function getConnections() {
     arr = []
@@ -174,31 +176,44 @@ router.post('/api/connections/connect', async (req, res) => {
         })
     }
 
-    const connector = await Connect({
+    const connector = mysql.createConnection({
         host: findData.host,
         port: findData.port,
         user: findData.user,
         password: decrypt(findData.password, findData.passwordKey),
-        database: findData.database === "" ? undefined : findData.database,
-    } as MySQLConnectionStruct)
-    
+        database: findData.database === "" ? undefined : findData.database
+    })
+
+    connector.connect((err) => {
+        if (err) {
+            return res.json({
+                error: true,
+                message: err.message
+            })
+        }
+    })
+
+    db = connector
+
     const key = getRandomString(32)
 
-    const token = tokenHandler.sign(findData.passwordKey, key)
+    const token = tokenHandler.sign({
+        host: findData.host,
+        port: findData.port,
+        user: findData.user,
+        database: findData.database,
+        passwordKey: findData.passwordKey
+    }, key)
 
-    if (connector.err) {
-        return res.json({
-            error: true,
-            message: connector.message
-        })
-    } else {
-        res.json({
-            message: {
-                token: token,
-                key: key
-            }
-        })
-    }
+    res.json({
+        message: {
+            token: token,
+            key: key
+        }
+    })
 })
 
-export { router as connectionsAPI }
+export { 
+    router as connectionsAPI,
+    db
+ }

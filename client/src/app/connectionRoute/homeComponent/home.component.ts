@@ -10,12 +10,62 @@ import * as alerts from "sweetalert2"
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  data: Root['connectionsInterfaces'] = {
+    host: '',
+    port: '',
+    user: '',
+    database: ''
+  }
 
   token: string = JSON.parse(sessionStorage.getItem('connection') as string).token;
 
   constructor(private httpService: HttpService) { }
 
-  async geData() {
+  disconnect() {
+    alerts.default.fire({
+      title: 'Disconnect',
+      html: `
+      Are you sure to disconnect from?:
+      <br/>${this.data.host}:${this.data.port}`,
+      icon:'warning',
+      confirmButtonText: 'Ok',
+      showCancelButton: true,
+      background: "#111",
+      color: "var(--angsql-white)"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.httpService.post({
+          url: `${SERVER_HOST}/api/connections/disconnect`,
+          type: this.data,
+          body: undefined
+        }).subscribe(res => {
+          const response = res as Root['connectionsInterfaces'];
+          if (response.error) {
+            return alerts.default.fire({
+              title: 'Error',
+              text: "Something went wrong",
+              icon: 'error',
+              background: "#111",
+              timer: 2000,
+              color: "var(--angsql-white)"
+            })
+          }
+          return alerts.default.fire({
+            title: 'Success',
+            text: "Successfully disconnected",
+            icon:'success',
+            background: "#111",
+            timer: 2000,
+          }).then(() => {
+            sessionStorage.removeItem('connection');
+            window.location.href = "/"
+          })
+        })
+      }
+    })
+  }
+
+  geData() {
     const data: TokenData = {
       token: this.token
       // key: this.key
@@ -41,11 +91,13 @@ export class HomeComponent implements OnInit {
           window.sessionStorage.removeItem('connection');
           window.location.href = '/'
         })
+      } else {
+        this.data = response;
       }
     })
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.geData();
   }
 }

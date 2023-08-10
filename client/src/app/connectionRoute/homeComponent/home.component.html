@@ -1,1 +1,32 @@
-<p>home works!</p>
+<nav class="bar">
+    <div class="title">
+        <h1>Welcome to: {{ data.host }}:{{ data.port }}</h1>
+        <h3>
+            <span class="usr-nav-title">
+                User: <span class="nav-span-content">{{ data.user }}</span>
+            </span>
+            <span *ngIf="data.database !== ''" class="db-nav-title">
+                DB: <span class="nav-span-content">{{ data.database }}</span>
+            </span>
+        </h3>
+    </div>
+    <div class="btn-content">
+        <button class="btn-disconnect" (click)="disconnect()"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+    </div>
+</nav>
+<nav class="barTools">
+    <div class="title">
+        <h1>Tools <i class="fa-solid fa-screwdriver-wrench"></i></h1>
+    </div>
+    <ul class="tools-menu">
+        <li *ngIf="data.database === ''" class="tools-menu-item">
+            <button class="tools-menu-btn">Manage Databases <i class="fa-solid fa-database"></i></button>
+        </li>
+        <li *ngIf="data.database !== ''" class="tools-menu-item">
+            <button class="tools-menu-btn">Manage Tables <i class="fa-solid fa-table"></i></button>
+        </li>
+        <li class="tools-menu-item">
+            <button class="tools-menu-btn">Write SQL <i class="fa-solid fa-code"></i></button>
+        </li>
+    </ul>
+</nav>

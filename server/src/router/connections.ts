@@ -184,13 +184,20 @@ router.post('/api/connections/connect', async (req, res) => {
         database: findData.database === "" ? undefined : findData.database
     })
 
-    connector.connect((err) => {
-        if (err) {
-            return res.json({
-                error: true,
-                message: err.message
-            })
-        }
+    const connect = new Promise<{err: boolean, message: string | null}>((resolve) => {
+        connector.connect((err) => {
+            if (err) {
+                resolve({
+                    err: true,
+                    message: err.message
+                })
+            } else {
+                resolve({
+                    err: false,
+                    message: null
+                })
+            }
+        })
     })
 
     db = connector
@@ -204,6 +211,13 @@ router.post('/api/connections/connect', async (req, res) => {
         database: findData.database,
         passwordKey: findData.passwordKey
     }, key)
+
+    if ((await connect).err) {
+        return res.json({
+            error: true,
+            message: (await connect).message
+        })
+    }
 
     res.json({
         message: {

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { SERVER_HOST, ALERT_STYLE } from 'src/consts';
 
 import { Root } from 'src/models/connections.model';
@@ -11,10 +11,13 @@ import * as alert from "sweetalert2"
   templateUrl: './edit-connection.component.html',
   styleUrls: ['./edit-connection.component.css']
 })
-export class EditConnectionComponent {
+export class EditConnectionComponent implements OnInit {
   @Input() connection!: Root['connectionsInterfaces'];
+  
   @Input() show!: boolean;
+
   @Output() hide = new EventEmitter<boolean>();
+
   data: Root['connectionsInterfaces'] = {
     user: '',
     host: '',
@@ -22,15 +25,25 @@ export class EditConnectionComponent {
     database: undefined,
     password: ''
   }
+
+  showDatabaseField: boolean = false;
+
   constructor(private httpService: HttpService) {}
   hideComponent() {
     this.hide.emit()
   }
+
+  showDatabaseFieldHandler() {
+    if (this.connection.database !== "") {
+      this.showDatabaseField = !this.showDatabaseField;
+    }
+  }
+
   getData(values: Root['connectionsInterfaces']) {
     this.data.host = values.host
     this.data.port = !isNaN(values.port as number) ? parseInt(values.port as string) : null;
     this.data.user = values.user
-    this.data.database = values.database;
+    this.data.database = this.connection.database === "" ? undefined : values.database;
     this.data.password = values.password === "" ? undefined : values.password
     this.sendData()
   }
@@ -114,5 +127,9 @@ export class EditConnectionComponent {
         });
       })
     })
+  }
+
+  ngOnInit(): void {
+    this.showDatabaseFieldHandler()
   }
 }

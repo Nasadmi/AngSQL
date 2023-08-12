@@ -115,3 +115,7 @@
     background-color: #0f1322;
     color: rgb(0, 99, 145);
 }
+
+.hideField {
+    display: none;
+}

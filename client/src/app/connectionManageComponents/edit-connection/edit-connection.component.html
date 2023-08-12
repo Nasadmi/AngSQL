@@ -5,26 +5,24 @@
     <div class="form">
         <label for="host">
             <h3>Host</h3>
-            <input type="text" name="host" value="{{connection.host}}" #host placeholder="example: localhost">
+            <input type="text" name="host" value="{{connection.host}}" #host placeholder="example: localhost" autocomplete="off">
         </label>
         <label for="port">
             <h3>Port</h3>
-            <input type="text" name="port" value="{{connection.port}}" #port placeholder="example: 3306">
+            <input type="text" name="port" value="{{connection.port}}" #port placeholder="example: 3306" autocomplete="off">
         </label>
         <label for="user">
             <h3>User</h3>
-            <input type="text" name="user" value="{{connection.user}}" #user placeholder="example: root">
+            <input type="text" name="user" value="{{connection.user}}" #user placeholder="example: root" autocomplete="off">
         </label>
         <label for="password">
             <h3>Change Password</h3>
-            <input type="password" name="password" placeholder="new password" #password>
+            <input type="password" name="password" placeholder="new password" #password autocomplete="off">
         </label>
-        <ng-container *ngIf="connection.database !== ''">
-            <label for="database">
-                <h3>Database</h3>
-                <input type="text" name="database" value="{{connection.database}}" #database placeholder="example: test">
-            </label>
-        </ng-container>
+        <label for="database" [ngClass]="{'hideField': !showDatabaseField }">
+            <h3>Database</h3>
+            <input type="text" name="database" value="{{connection.database}}" #database placeholder="example: test" autocomplete="off">
+        </label>
     </div>
     <div class="btn-flex">
         <button class="btn-submit" (click)="getData({
@@ -32,7 +30,7 @@
             port: port.value,
             user: user.value,
             password: password.value,
-            database: connection.database !== '' ? connection.database : undefined
+            database: database.value         
         })">
             Edit Connection
         </button>

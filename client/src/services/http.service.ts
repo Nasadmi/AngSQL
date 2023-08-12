@@ -16,7 +16,17 @@ export class HttpService {
         });
     }
 
-    post({ url, type, body }: { url: string; type: Connections[] | Root['connectionsInterfaces'] | TokenData | string[]; body: Connections | undefined | TokenData; }) {
+    post({ url, type, body }: { 
+        url: string; 
+        type: Connections[] 
+        | Root['connectionsInterfaces'] 
+        | TokenData 
+        | string[] 
+        | string; 
+        body: Connections |
+        { data: string } 
+        | undefined 
+        | TokenData; }) {
         return this.http.post<typeof type>(url, body);
     }
 }

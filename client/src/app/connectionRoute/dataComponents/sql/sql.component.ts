@@ -2,6 +2,10 @@ import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import * as CodeMirror from 'codemirror';
 import 'codemirror/mode/sql/sql';
 import { FormControl } from '@angular/forms';
+import { HttpService } from "src/services/http.service"
+import { ShareService } from 'src/services/share.service';
+import { SERVER_HOST } from 'src/consts';
+import { Root } from 'src/models/connections.model';
 
 @Component({
   selector: 'app-sql',
@@ -12,7 +16,12 @@ import { FormControl } from '@angular/forms';
 
 export class SqlComponent {
   @ViewChild('CodeMirror') codeMirror: unknown;
-  sqlFormControl: FormControl = new FormControl('SELECT * FROM users;');
+  text: string = ""
+  response!: {
+    error: boolean,
+    text: string
+  }
+  sqlFormControl: FormControl = new FormControl('');
   cmOptions: CodeMirror.EditorConfiguration = {
     mode: 'text/x-sql',
     theme: 'material-ocean',
@@ -21,9 +30,29 @@ export class SqlComponent {
     tabSize: 4,
     indentUnit: 4
   }
-  constructor() {
+  constructor(private httpService: HttpService, private shareService: ShareService) {
     this.sqlFormControl.valueChanges.subscribe(value => {
-      console.log(value);
+      this.text = value
     });
+  }
+  sendData() {
+    this.httpService.post({
+      url: `${SERVER_HOST}/api/db/query`,
+      type: this.text,
+      body: {
+        data: this.text
+      }
+    }).subscribe(res => {
+      const response = res as Root['connectionsInterfaces']
+      this.shareService.changeValue({
+        change: true,
+      })
+      this.shareService.changeResponse({
+        response: {
+          error: response.error,
+          message: response.message
+        }
+      })
+    })
   }
 }

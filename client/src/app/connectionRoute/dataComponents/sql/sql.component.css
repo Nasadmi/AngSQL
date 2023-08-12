@@ -1,10 +1,34 @@
 @import url('https://cdn.tutorialjinni.com/firacode/6.2.0/fira_code.min.css');
 
+.container {
+  width: 100%;
+  position: relative;
+}
+
 .CodeMirror {
     width: 100%;
-    height: 565px;
+    height: 350px;
     font-size: 16px;
     font-family: "Fira Code";
     font-weight: 500;
     letter-spacing: 1px;
-  }
+}
+
+.send {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 22px;
+  border: none;
+  background-color: rgb(0, 195, 0);
+  color: var(--angsql-black);
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}  
+
+.send:hover {
+  color: rgba(0, 195, 0);
+  background-color: var(--angsql-black);
+}

@@ -1,3 +1,7 @@
 <div class="container">
-    <ngx-codemirror [options]="cmOptions" [formControl]="sqlFormControl"></ngx-codemirror>
+    <ngx-codemirror 
+    [options]="cmOptions" 
+    [formControl]="sqlFormControl" 
+    ></ngx-codemirror>
+    <button class="send" (click)="sendData()"><i class="fa-solid fa-paper-plane"></i></button>
 </div>

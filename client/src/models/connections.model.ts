@@ -8,7 +8,7 @@ export interface TokenData {
     key?: string
 }
 
-interface Response {
+export interface Response {
     error?: boolean;
     message?: string | boolean | TokenData
 }

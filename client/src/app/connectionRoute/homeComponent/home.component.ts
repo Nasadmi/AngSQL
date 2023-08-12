@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Root, TokenData } from 'src/models/connections.model';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Root, TokenData, Response } from 'src/models/connections.model';
 import { SERVER_HOST } from 'src/consts';
+import { ShareService } from 'src/services/share.service';
+import { Subscription } from 'rxjs';
 import { HttpService } from 'src/services/http.service';
 import * as alerts from "sweetalert2"
 
@@ -9,7 +11,8 @@ import * as alerts from "sweetalert2"
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  
   data: Root['connectionsInterfaces'] = {
     host: '',
     port: '',
@@ -17,11 +20,39 @@ export class HomeComponent implements OnInit {
     database: ''
   }
 
+  subscription!: Subscription
+
+  responseChange: Response | undefined
+
   token: string = JSON.parse(sessionStorage.getItem('connection') as string).token;
+  
+  constructor(private httpService: HttpService, private shareService: ShareService) {}
 
-  constructor(private httpService: HttpService) { }
+  detectChanges() {
+    this.subscription = this.shareService.changeObservable.subscribe(newValue => {
+      if (newValue) {
+        this.shareService.changeValue({
+          change: false,
+        })
+      }
+    })
+  }
 
-  disconnect() {
+  setLogs() {
+    this.subscription = this.shareService.responseObservable.subscribe(newValue => {
+      if ((newValue as Response).error) {
+        (document.querySelector("#log") as HTMLElement).textContent += `ERR:TRUE:${((newValue as Response).message as string)}`.split('\n')[0] + '\n';
+      } else {
+        (document.querySelector("#log") as HTMLElement).textContent += `ERR:FALSE:${JSON.stringify((newValue as Response).message as string)}`.split('\n')[0] + '\n';
+      }
+    })
+  }
+
+  clearLogs() {
+    (document.querySelector("#log") as HTMLElement).textContent = ""
+  }
+
+  disconnect(): void {
     alerts.default.fire({
       title: 'Disconnect',
       html: `
@@ -65,7 +96,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  geData() {
+  geData(): void {
     const data: TokenData = {
       token: this.token
       // key: this.key
@@ -97,7 +128,13 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.geData();
+    this.detectChanges()
+    this.setLogs()
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 }

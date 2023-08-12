@@ -82,6 +82,8 @@ nav.bar .btn-content .btn-disconnect:hover {
     color: var(--angsql-white);
 }
 
+/* CONTENT */
+
 /* TOOLS */
 
 nav.barTools {
@@ -146,13 +148,93 @@ nav.barTools ul.tools-menu li .tools-menu-btn:hover::before {
     transform-origin: left;
 }
 
-/* CODE AND FLEX */
+/* COMPONENTS AND FLEX */
 
 .flex {
     display: flex;
+    width: 100%;
+}
+
+.flex-columns {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 app-sql {
+    height: 410px;
+}
+
+.components, .sqlLog {
+    flex: 1;
+}
+
+/* SQL LOG */
+
+.sqlLog {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.sqlLog h4 {
+    width: auto;
+    padding: 5px;
+    margin-left: 10px;
+    background-color: #0f111a;
+    color: var(--angsql-white);
+    text-align: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: var(--angsql-ub-font);
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    z-index: 2;
+}
+
+.sqlLog button {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 22px;
+    border: none;
+    background-color: rgb(9, 9, 107);
+    color: var(--angsql-white);
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+    display: flex;
+    justify-content: center;
+}
+
+.sqlLog button:hover {
+    color: rgb(9, 9, 107);
+    background-color: var(--angsql-white);
+}
+
+.sqlLog .separator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(20, 20, 20, 1);
+    z-index: 1;
     width: 100%;
-    height: 565px;
+    height: 28px;
+}
+
+.sqlLog textarea {
+    width: 100%;
+    height: calc(565px - 375px);
+    resize: none;
+    overflow: auto;
+    color: #fff;
+    background-color: rgba(20, 20, 20, 1);
+    border: none;
+    margin-top: 27px;
+    font-size: 14px;
+    font-family: var(--angsql-ir-font);
+    padding: 8px;
 }

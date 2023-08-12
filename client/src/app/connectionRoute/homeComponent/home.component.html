@@ -31,5 +31,17 @@
             </li>
         </ul>
     </nav>
-    <app-sql></app-sql>
-</div>
+    <div class="flex-columns">
+        <div class="components">
+            <app-sql id="codeSQL"></app-sql>
+        </div>
+        <div class="sqlLog">
+            <h4>
+                MySQL Log
+            </h4>
+            <button (click)="clearLogs()"><i class="fas fa-undo-alt"></i></button>
+            <span class="separator"></span>
+            <textarea name="logText" class="logText" id="log" readonly></textarea>
+        </div>
+    </div>
+</div>  

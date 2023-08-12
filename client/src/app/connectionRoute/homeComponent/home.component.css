@@ -126,6 +126,7 @@ nav.barTools ul.tools-menu li:nth-child(2) .tools-menu-btn {
 
 nav.barTools ul.tools-menu li:nth-child(1) .tools-menu-btn {
     color: #6aacc4;
+    text-decoration: line-through;
 }
 
 nav.barTools ul.tools-menu li .tools-menu-btn::before {

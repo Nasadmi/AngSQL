@@ -41,4 +41,21 @@ router.get("/api/db/databases", async (req, res) => {
     }
 })
 
+router.post('/api/db/query', async (req, res) => {
+    const { data } = req.body;
+    db.query(data, (err, result) => {
+        if (err) {
+            res.json({
+                error: true,
+                message: err.message
+            })
+        } else {
+            res.json({
+                error: false,
+                message: result
+            })
+        }
+    })
+})
+
 export { router as dbAPI };

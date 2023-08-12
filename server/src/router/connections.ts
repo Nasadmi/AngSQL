@@ -123,8 +123,7 @@ router.post('/api/connections/edit', async (req, res) => {
     }
 
     const findData = connections.find(connection => 
-        decrypt(connection.password, connection.passwordKey) === passwordExample &&
-        connection.database === database
+        decrypt(connection.password, connection.passwordKey) === passwordExample
     )
 
     if (findData === undefined) {
